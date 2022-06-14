@@ -1,0 +1,93 @@
+org: joematune
+console: false
+service: ts-dynamodb-local
+frameworkVersion: "3"
+
+plugins:
+  # Order is important
+  - serverless-webpack
+  # serverless-offline needs to be last in the list
+  - serverless-offline
+
+custom:
+  defaultStage: dev
+
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+  serverless-offline:
+    httpPort: 3001
+    # prevent UnhandledPromiseRejection offline
+    # https://github.com/dherault/serverless-offline/issues/1377
+    useChildProcesses: false
+
+# Serverless v3 natively supports dotenv
+# reference with ${env:DOPE_VAR, 'dope-default-value'}
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  profile: default
+  region: ${self:provider.environment.DEFAULT_REGION}
+  environment:
+    DEFAULT_REGION: us-east-2
+    DYNAMODB_TABLE: ${self:service}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+  httpApi:
+    cors: true
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+  tracing:
+    apiGateway: true
+    lambda: true
+
+functions:
+  create:
+    handler: src/handlers/create.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: post
+
+  list:
+    handler: src/handlers/list.handler
+    events:
+      - httpApi:
+          path: /todos
+          method: get
+
+  get:
+    handler: src/handlers/get.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: get
+
+  update:
+    handler: src/handlers/update.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: put
+
+  delete:
+    handler: src/handlers/delete.handler
+    events:
+      - httpApi:
+          path: /todos/{id}
+          method: delete
+
+resources:
+  - ${file(resources/${self:service}.yml)}

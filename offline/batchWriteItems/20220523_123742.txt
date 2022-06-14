@@ -1,0 +1,124 @@
+{
+  "ts-dynamodb-local": [
+    {
+      "PutRequest": {
+        "Item": {
+          "createdAt": {
+            "S": "2022-05-23T10:18:29.180Z"
+          },
+          "SK": {
+            "S": "TODO#cl3ikskak0002s0pd04vde7bh"
+          },
+          "checked": {
+            "BOOL": false
+          },
+          "text": {
+            "S": "Learn Serverless"
+          },
+          "id": {
+            "S": "cl3ikskak0002s0pd04vde7bh"
+          },
+          "PK": {
+            "S": "TODO"
+          },
+          "type": {
+            "S": "TODO"
+          },
+          "updatedAt": {
+            "S": "2022-05-23T10:18:29.180Z"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "createdAt": {
+            "S": "2022-05-23T10:18:39.208Z"
+          },
+          "SK": {
+            "S": "TODO#cl3ikss140004s0pdfjbk66zx"
+          },
+          "checked": {
+            "BOOL": false
+          },
+          "text": {
+            "S": "Learn AWS"
+          },
+          "id": {
+            "S": "cl3ikss140004s0pdfjbk66zx"
+          },
+          "PK": {
+            "S": "TODO"
+          },
+          "type": {
+            "S": "TODO"
+          },
+          "updatedAt": {
+            "S": "2022-05-23T10:18:39.208Z"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "createdAt": {
+            "S": "2022-05-23T10:19:00.306Z"
+          },
+          "SK": {
+            "S": "TODO#cl3ikt8a80006s0pdbp730h5t"
+          },
+          "checked": {
+            "BOOL": false
+          },
+          "text": {
+            "S": "Learn Microservices"
+          },
+          "id": {
+            "S": "cl3ikt8a80006s0pdbp730h5t"
+          },
+          "PK": {
+            "S": "TODO"
+          },
+          "type": {
+            "S": "TODO"
+          },
+          "updatedAt": {
+            "S": "2022-05-23T10:19:00.306Z"
+          }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "createdAt": {
+            "S": "2022-05-23T10:19:42.946Z"
+          },
+          "SK": {
+            "S": "TODO#cl3iku57m0008s0pdbfx2fztc"
+          },
+          "checked": {
+            "BOOL": false
+          },
+          "text": {
+            "S": "Learn Tech"
+          },
+          "id": {
+            "S": "cl3iku57m0008s0pdbfx2fztc"
+          },
+          "PK": {
+            "S": "TODO"
+          },
+          "type": {
+            "S": "TODO"
+          },
+          "updatedAt": {
+            "S": "2022-05-23T10:19:42.946Z"
+          }
+        }
+      }
+    }
+  ]
+}

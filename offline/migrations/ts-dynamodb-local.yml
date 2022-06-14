@@ -1,0 +1,16 @@
+# this file is used to create a new dynamo table
+TableName: ts-dynamodb-local
+BillingMode: PAY_PER_REQUEST
+AttributeDefinitions:
+  - AttributeName: PK
+    AttributeType: S
+  - AttributeName: SK
+    AttributeType: S
+KeySchema:
+  - AttributeName: PK
+    KeyType: HASH
+  - AttributeName: SK
+    KeyType: RANGE
+ProvisionedThroughput:
+  ReadCapacityUnits: 10
+  WriteCapacityUnits: 5

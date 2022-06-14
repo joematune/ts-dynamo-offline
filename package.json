@@ -1,0 +1,53 @@
+{
+  "name": "@project/todo",
+  "version": "1.0.0",
+  "description": "Serverless Node aws-v3 API Webpack TS DynamoDB offline",
+  "repository": "https://github.com/joematune/ts-dynamodb-local",
+  "author": "Joe Matune <hello@joematune.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.54.0",
+    "@aws-sdk/credential-providers": "^3.95.0",
+    "@aws-sdk/lib-dynamodb": "^3.45.0",
+    "cuid": "^2.1.8"
+  },
+  "scripts": {
+    "dev": "IS_LOCAL=true && npx serverless offline",
+    "deploy": "npx serverless deploy",
+    "create-table": "aws dynamodb create-table --cli-input-yaml file://./offline/migrations/ts-dynamodb-local.yml",
+    "create-table-local": "npm run create-table -- --endpoint-url http://localhost:8000 ",
+    "delete-table": "aws dynamodb delete-table --table-name ts-dynamodb-local",
+    "delete-table-local": "npm run delete-table -- --endpoint-url http://localhost:8000",
+    "list-tables": "aws dynamodb list-tables",
+    "list-tables-local": "npm run list-tables -- --endpoint-url http://localhost:8000",
+    "generate-skeleton": "aws dynamodb create-table --cli-input-yaml file://./offline/migrations/ts-dynamodb-local.yml --generate-cli-skeleton",
+    "generate-skeleton-local": "npm run generate-skeleton --endpoint-url http://localhost:8000",
+    "export": "TIMESTAMP=$(date \"+%Y%m%d_%H%M%S\") && aws dynamodb scan --table-name ts-dynamodb-local --region us-east-2 --max-items 50 --output json > ./offline/dump/$TIMESTAMP.json && cat ./offline/dump/$TIMESTAMP.json | jq '.Items | {\"ts-dynamodb-local\": [.[] | {PutRequest: {Item: .}}]}' > ./offline/batchWriteItems/$TIMESTAMP.txt && echo ./offline/batchWriteItems/$TIMESTAMP.txt | pbcopy",
+    "export-local": "TIMESTAMP=$(date \"+%Y%m%d_%H%M%S\") && aws dynamodb scan --endpoint-url http://localhost:8000 --table-name ts-dynamodb-local --region us-east-2 --max-items 50 --output json > ./offline/dump/$TIMESTAMP.json && cat ./offline/dump/$TIMESTAMP.json | jq '.Items | {\"ts-dynamodb-local\": [.[] | {PutRequest: {Item: .}}]}' > ./offline/batchWriteItems/$TIMESTAMP.txt && echo ./offline/batchWriteItems/$TIMESTAMP.txt | pbcopy",
+    "batch-write-item": "aws dynamodb batch-write-item",
+    "batch-write-item-local": "npm run batch-write-item -- --endpoint-url http://localhost:8000",
+    "import": "echo Enter path to file:; read file; npm run batch-write-item -- --request-items file://$file",
+    "import-local": "echo Enter path to file:; read file; npm run batch-write-item-local -- --request-items file://$file"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.51",
+    "@types/node": "^13.13.5",
+    "@types/webpack": "^4.41.32",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "aws-lambda": "^1.0.6",
+    "aws-sdk-mock": "^5.1.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "prettier": "^2.6.2",
+    "serverless": "^3.18.0",
+    "serverless-offline": "^8.2.0",
+    "serverless-webpack": "5.7.0",
+    "ts-loader": "^6.2.2",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.6.4",
+    "webpack": "^4.46.0 ",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-permissions-plugin": "^1.0.7"
+  }
+}
