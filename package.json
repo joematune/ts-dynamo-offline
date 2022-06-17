@@ -26,8 +26,8 @@
     "export-local": "TIMESTAMP=$(date \"+%Y%m%d_%H%M%S\") && aws dynamodb scan --endpoint-url http://localhost:8000 --table-name ts-dynamodb-local --region us-east-2 --max-items 50 --output json > ./offline/dump/$TIMESTAMP.json && cat ./offline/dump/$TIMESTAMP.json | jq '.Items | {\"ts-dynamodb-local\": [.[] | {PutRequest: {Item: .}}]}' > ./offline/batchWriteItems/$TIMESTAMP.txt && echo ./offline/batchWriteItems/$TIMESTAMP.txt | pbcopy",
     "batch-write-item": "aws dynamodb batch-write-item",
     "batch-write-item-local": "npm run batch-write-item -- --endpoint-url http://localhost:8000",
-    "import": "echo Enter path to file:; read file; npm run batch-write-item -- --request-items file://$file",
-    "import-local": "echo Enter path to file:; read file; npm run batch-write-item-local -- --request-items file://$file"
+    "import": "read -e -p \"Enter path to file: \n\" ITEMS_FILE; npm run batch-write-item -- --request-items file://$ITEMS_FILE",
+    "import-local": "read -e -p \"Enter path to file: \n\" ITEMS_FILE; npm run batch-write-item-local -- --request-items file://$ITEMS_FILE"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.51",
