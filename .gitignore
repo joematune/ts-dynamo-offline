@@ -58,6 +58,9 @@ node_modules/
 # Serverless directories
 .serverless/
 
+# Webpack directories
+.webpack/
+
 # DynamoDB Local files
 .dynamodb/
 
