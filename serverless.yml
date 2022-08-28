@@ -13,7 +13,7 @@ custom:
   defaultStage: dev
 
   webpack:
-    webpackConfig: ./webpack.config.js
+    webpackConfig: ./webpack.config.ts
     includeModules: true
 
   serverless-offline:
